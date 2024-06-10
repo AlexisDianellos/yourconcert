@@ -93,7 +93,7 @@ const Home = () => {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-blue-300 p-8 rounded-lg shadow-lg w-11/12 max-w-2xl">
             <h2 className="text-2xl font-bold mb-4 text-center">{selectedConcert.title}</h2>
-            <img className="object-contain h-64 w-full rounded-lg mb-4" src={`http://localhost:4000/${selectedConcert.cover}`} alt={`Concert ${selectedConcert.title}`} />
+            <img className="object-contain h-64 w-full rounded-lg mb-4" src={`https://yourconcert-api.onrender.com/${selectedConcert.cover}`} alt={`Concert ${selectedConcert.title}`} />
             <p className="mb-4">{selectedConcert.date}</p>
             <p className="mb-4">{selectedConcert.location}</p>
             <p className="mb-4">{selectedConcert.artist}</p>
