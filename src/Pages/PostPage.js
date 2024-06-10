@@ -57,7 +57,7 @@ useEffect(() => {
     </Link>
     <h1 className="text-2xl font-bold mb-8 text-center">{post.title}</h1>
     <div className="mb-5">
-      <img src={`http://localhost:4000/${post.cover}`} alt={post.title} className="w-full h-auto object-cover rounded-md" />
+      <img src={`https://yourconcert-api.onrender.com/${post.cover}`} alt={post.title} className="w-full h-auto object-cover rounded-md" />
     </div>
     <div className='flex justify-center'>
       <hr className="w-full border-t border-gray-300 my-4 " />
