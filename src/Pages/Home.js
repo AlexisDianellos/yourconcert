@@ -14,7 +14,7 @@ const Home = () => {
     useEffect(() => {
       const fetchPosts = async () => {
         try {
-          const response = await fetch('http://localhost:4000/post', {
+          const response = await fetch('https://yourconcert-api.onrender.com/post', {
             credentials: 'include', // Include this if your backend requires cookies
           });
           if (!response.ok) {
@@ -29,7 +29,7 @@ const Home = () => {
 
       const fetchConcerts = async () => {
         try {
-          const response = await fetch('http://localhost:4000/concerts');
+          const response = await fetch('https://yourconcert-api.onrender.com/concerts');
           if (!response.ok) {
             throw new Error(`HTTP error, status: ${response.status}`);
           }
