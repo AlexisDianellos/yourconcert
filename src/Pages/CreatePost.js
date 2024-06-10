@@ -38,6 +38,17 @@ const CreatePost = () => {
   const [redirect,setRedirect] = useState(false);
 
   const handleSubmit = async(event) => {
+   
+    event.preventDefault();
+
+   if (!title || !summary || !files || !performanceQuality || !pqComments || 
+      !stagePresence || !spComments || !soundQuality || !sqComments || 
+      !visualEffects || !veComments || !audienceInteraction || !aiComments || 
+      !content) {
+    alert('Please fill in all fields');
+    return;
+  }
+    
     const data = new FormData();//object for my 4 things
     data.set('title',title);
     data.set('summary',summary);
@@ -53,8 +64,7 @@ const CreatePost = () => {
     data.set('veComments', veComments);
     data.set('audienceInteraction', audienceInteraction);
     data.set('aiComments', aiComments);
-
-    event.preventDefault();
+    
     //when create post is clicked i want to send my 4 things to backend
     const response = await fetch('https://yourconcert-api.onrender.com/post',{
       method:'POST',//bc im posting a new entry
