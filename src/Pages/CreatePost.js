@@ -56,7 +56,7 @@ const CreatePost = () => {
 
     event.preventDefault();
     //when create post is clicked i want to send my 4 things to backend
-    const response = await fetch('http://localhost:4000/post',{
+    const response = await fetch('https://yourconcert-api.onrender.com/post',{
       method:'POST',//bc im posting a new entry
       body: data,
       credentials: 'include',
