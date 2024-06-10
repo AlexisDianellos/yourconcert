@@ -28,7 +28,7 @@ const Navbar = () => {
 
   function logout(){
     //reset cookie on backend
-    fetch('http://localhost:4000/logout',{
+    fetch('https://yourconcert-api.onrender.com/logout',{
       credentials:'include',
       method:'POST',
     });
