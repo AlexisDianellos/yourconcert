@@ -9,7 +9,7 @@ const PostPage = () => {
   const [overallRating, setOverallRating] = useState(null);
 
 useEffect(() => {
-    fetch(`http://localhost:4000/post/${id}`)
+    fetch(`https://yourconcert-api.onrender.com/post/${id}`)
       .then(response => {
         response.json().then(postInfo => {
           setPost(postInfo);
