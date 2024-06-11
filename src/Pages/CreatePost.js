@@ -71,6 +71,7 @@ const CreatePost = () => {
       body: data,
       credentials: 'include',
     });
+    console.log('Create Post response:', response);
     if (response.ok){
       setRedirect(true);
     }
