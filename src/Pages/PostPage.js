@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
+import {UserContext} from "../UserContext";
 import { Link } from 'react-router-dom';
 
 const PostPage = () => {
-  
+  const {userInfo}=useContext(UserContext);
   const [post,setPost]=useState(null);
   const {id} = useParams();//id of each post that it gets from the url
   const [overallRating, setOverallRating] = useState(null);
 
 useEffect(() => {
-    fetch(`http://localhost:4000/post/${id}`)
+    fetch(`https://yourconcert-api.onrender.com/post/${id}`)
       .then(response => {
         response.json().then(postInfo => {
           setPost(postInfo);
@@ -55,9 +56,33 @@ useEffect(() => {
     <Link className="font-bold material-symbols-outlined mb-5" to="/">
       arrow_back
     </Link>
-    <h1 className="text-2xl font-bold mb-8 text-center">{post.title}</h1>
+    <div className='flex lg:flex-row md:flex-row sm:flex-row lg:mb-8 md:mb-8 sm:mb-8 flex-col justify-center'>
+      <h1 className="text-2xl font-bold text-center">{post.title}</h1>
+      {userInfo.id === post.author._id && (
+          <div className='text-center mt-3 mb-3 lg:mt-0 md:mt-0 sm:mt-0 lg:mb-0 md:mb-0 sm:mb-0'>
+            <Link
+              to={`/edit/${post._id}`}
+              className='lg:ml-5 md:ml-5 sm:ml-5 text-center lg:mt-0 md:mt-0 sm:mt-0 lg:mb-0 md:mb-0 sm:mb-0 mb-2 mt-2 lg:p-0 md:p-0 sm:p-0 p-4'
+              >
+              <span
+                className="material-symbols-outlined text-xl"
+                >
+                edit
+              </span>
+            </Link>
+            <Link
+              to={`/delete/${post._id}`}
+              className='lg:ml-5 md:ml-5 sm:ml-5 text-center lg:mt-0 md:mt-0 sm:mt-0 lg:mb-0 md:mb-0 sm:mb-0 mb-2 mt-2 p-4 lg:p-0 md:p-0 sm:p-0'
+            >
+            <span class="material-symbols-outlined text-xl">
+              delete
+            </span>
+            </Link>
+          </div>
+      )}
+    </div>
     <div className="mb-5">
-      <img src={`http://localhost:4000/${post.cover}`} alt={post.title} className="w-full h-auto object-cover rounded-md" />
+      <img src={`https://yourconcert-api.onrender.com/${post.cover}`} alt={post.title} className="w-full h-auto object-cover rounded-md" />
     </div>
     <div className='flex justify-center'>
       <hr className="w-full border-t border-gray-300 my-4 " />

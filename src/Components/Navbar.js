@@ -1,14 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../UserContext';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const {setUserInfo,userInfo} = useContext(UserContext)
+  const navigate = useNavigate();
   //check if im logged in with my token inside my cookies (check if its valid)
   useEffect(()=>{
     const fetchProfile = async ()=>{
       try{
-        const response = await fetch('http://localhost:4000/profile',{
+        const response = await fetch('https://yourconcert-api.onrender.com/profile',{
           credentials:'include',
         })
       if(!response.ok){
@@ -28,11 +30,12 @@ const Navbar = () => {
 
   function logout(){
     //reset cookie on backend
-    fetch('http://localhost:4000/logout',{
+    fetch('https://yourconcert-api.onrender.com/logout',{
       credentials:'include',
       method:'POST',
     });
     setUserInfo(null)
+    navigate('/');
   }
 
   const username = userInfo?.username;
