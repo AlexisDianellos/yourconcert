@@ -10,7 +10,7 @@ const PostPage = () => {
   const [overallRating, setOverallRating] = useState(null);
 
 useEffect(() => {
-    fetch(`https://yourconcert-api.onrender.com/post/${id}`)
+    fetch(`https://yourconcert-api.com/post/${id}`)
       .then(response => {
         response.json().then(postInfo => {
           setPost(postInfo);
@@ -49,6 +49,8 @@ useEffect(() => {
         <div className="text-center font-bold text-3xl text-white">⌛</div>
       </div>
     );
+  } else if (!userInfo){
+    window.location.reload();
   }
   
   return (
@@ -82,7 +84,7 @@ useEffect(() => {
       )}
     </div>
     <div className="mb-5">
-      <img src={`https://yourconcert-api.onrender.com/${post.cover}`} alt={post.title} className="w-full h-auto object-cover rounded-md" />
+      <img src={`https://yourconcert-api.com/${post.cover}`} alt={post.title} className="w-full h-auto object-cover rounded-md" />
     </div>
     <div className='flex justify-center'>
       <hr className="w-full border-t border-gray-300 my-4 " />

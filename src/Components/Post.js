@@ -35,13 +35,9 @@ const Post = ({_id,title,summary,cover,content,createdAt,author}) => {
         </div>
         <h1 className='text-md font-semibold mt-1'>{title}</h1>
         <div className='flex justify-center'>
-          <img src={'https://yourconcert-api.onrender.com/'+cover} className='w-full h-auto rounded-md object-cover mt-2 mb-2'></img>
-<<<<<<< HEAD
-        </div>  
-=======
+          <img src={'https://yourconcert-api.com/'+cover} className='w-full h-auto rounded-md object-cover mt-2 mb-2'></img>
         </div>
->>>>>>> dd6e01c016e4d6a3df32f91ef2195a2bdc3c1d80
-          <p className='text-md text-gray-200'>{summary}</p>
+        <p className='text-md text-gray-200'>{summary}</p>
       </Link>
       <hr className="w-full border-t border-gray-300 mt-5" />
     </div>

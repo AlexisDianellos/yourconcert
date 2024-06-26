@@ -10,7 +10,7 @@ const Register = () => {
 
   async function register(event){
     event.preventDefault();
-      const response = await fetch('https://yourconcert-api.onrender.com/register', {
+      const response = await fetch('https://yourconcert-api.com/register', {
       method:'POST', //bc /register in backend is a .POST
       body: JSON.stringify({username,password}),
       headers: {'Content-Type':'application/json'}, //bc its a json we need to send some headers

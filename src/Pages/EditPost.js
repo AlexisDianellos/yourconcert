@@ -39,7 +39,7 @@ const EditPost = () => {
   const [redirect,setRedirect] = useState(false);
 
   useEffect(()=>{
-    fetch('http://localhost:4000/post/'+id)
+    fetch('https://yourconcert-api.com/'+id)
       .then(response=>{
         response.json().then(post =>{
           setTitle(post.title)
@@ -82,7 +82,7 @@ const EditPost = () => {
 
     event.preventDefault();
     try {
-      const response = await fetch('https://yourconcert-api.onrender.com/post', {
+      const response = await fetch('https://yourconcert-api.com/post', {
         method: 'PUT',
         body: data,
         credentials: 'include',

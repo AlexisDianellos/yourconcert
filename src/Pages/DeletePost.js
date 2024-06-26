@@ -8,7 +8,7 @@ const DeletePost = () => {
   const handleDelete = async(event) => {
     event.preventDefault();
     try {
-      const response = await fetch(`https://yourconcert-api.onrender.com/post/${id}`, {
+      const response = await fetch(`https://yourconcert-api.com/post/${id}`, {
         method: 'DELETE',
         credentials: 'include',
       });

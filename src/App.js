@@ -10,6 +10,7 @@ import PostPage from './Pages/PostPage';
 import EditPost from './Pages/EditPost';
 import DeletePost from './Pages/DeletePost';
 import { UserContextProvider } from './UserContext';
+import Search from './Pages/Search';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/post/:id" element={<PostPage />}/>
             <Route path="/edit/:id" element={<EditPost />} />
             <Route path="/delete/:id" element={<DeletePost />} />
+            <Route path="/search" element={<Search />}/>
           </Routes>
         </Router>
     </div>
