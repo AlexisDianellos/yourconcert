@@ -10,7 +10,7 @@ const Search = () => {
   useEffect(() => {
     const fetchSearchResults = async () => {
       try {
-        const response = await fetch(`https://yourconcert-api.com/search?query=${encodeURIComponent(query)}`);
+        const response = await fetch(`https://yourconcert-api.onrender.com/search?query=${encodeURIComponent(query)}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

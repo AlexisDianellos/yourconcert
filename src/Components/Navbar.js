@@ -12,7 +12,7 @@ const Navbar = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await fetch('https://yourconcert-api.com/profile', {
+        const response = await fetch('https://yourconcert-api.onrender.com/profile', {
           credentials: 'include',
         });
         if (!response.ok) {
@@ -29,7 +29,7 @@ const Navbar = () => {
   }, [setUserInfo]);
 
   function logout() {
-    fetch('https://yourconcert-api.com/logout', {
+    fetch('https://yourconcert-api.onrender.com/logout', {
       credentials: 'include',
       method: 'POST',
     })

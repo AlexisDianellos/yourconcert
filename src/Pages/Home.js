@@ -14,7 +14,7 @@ const Home = () => {
     useEffect(() => {
       const fetchPosts = async () => {
         try {
-          const response = await fetch('https://yourconcert-api.com/post', {
+          const response = await fetch('https://yourconcert-api.onrender.com/post', {
             credentials: 'include', // Include this if your backend requires cookies
           });
           if (!response.ok) {
@@ -29,7 +29,7 @@ const Home = () => {
 
       const fetchConcerts = async () => {
         try {
-          const response = await fetch('https://yourconcert-api.com/concerts');
+          const response = await fetch('https://yourconcert-api.onrender.com/concerts');
           if (!response.ok) {
             throw new Error(`HTTP error, status: ${response.status}`);
           }
@@ -89,7 +89,7 @@ const Home = () => {
         onClick={()=>handleSlideClick(concert)}
         >
         <p className='text-center font-bold text-2xl mb-5'>{concert.title}</p>
-        <img className="object-contain lg:h-64 md:h-64 sm:h-64 w-full rounded-lg" src={`https://yourconcert-api.com/${concert.cover}`} alt={`Concert`} />
+        <img className="object-contain lg:h-64 md:h-64 sm:h-64 w-full rounded-lg" src={`https://yourconcert-api.onrender.com/${concert.cover}`} alt={`Concert`} />
       </SwiperSlide>
     ))}
   </Swiper>
@@ -98,7 +98,7 @@ const Home = () => {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-blue-300 p-8 rounded-lg shadow-lg w-11/12 max-w-2xl">
             <h2 className="text-2xl font-bold mb-4 text-center">{selectedConcert.title}</h2>
-            <img className="object-contain h-64 w-full rounded-lg mb-4" src={`https://yourconcert-api.com/${selectedConcert.cover}`} alt={`Concert ${selectedConcert.title}`} />
+            <img className="object-contain h-64 w-full rounded-lg mb-4" src={`https://yourconcert-api.onrender.com/${selectedConcert.cover}`} alt={`Concert ${selectedConcert.title}`} />
             <p className="mb-4">Starts: {formatDate(selectedConcert.date)}</p>
             <p className="mb-4">Location: {selectedConcert.location}</p>
             <p className="mb-4">Artists: {selectedConcert.artist}</p>

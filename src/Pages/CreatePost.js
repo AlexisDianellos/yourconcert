@@ -66,7 +66,7 @@ const CreatePost = () => {
     data.set('aiComments', aiComments);
     
     //when create post is clicked i want to send my 4 things to backend
-    const response = await fetch('https://yourconcert-api.com/post',{
+    const response = await fetch('https://yourconcert-api.onrender.com/post',{
       method:'POST',//bc im posting a new entry
       body: data,
       credentials: 'include',
