@@ -1,4 +1,3 @@
-import './App.css';
 import './index.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './Components/Navbar';
@@ -11,15 +10,17 @@ import EditPost from './Pages/EditPost';
 import DeletePost from './Pages/DeletePost';
 import { UserContextProvider } from './UserContext';
 import Search from './Pages/Search';
+import About from './Pages/About';
 
 function App() {
   return (
     <UserContextProvider>
-      <div className='bg-blue-500 text-white'>
+      <div className='text-white'>
         <Router>
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />}/>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/create" element={<CreatePost />} />

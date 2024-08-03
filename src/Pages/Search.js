@@ -11,11 +11,20 @@ const Search = () => {
     const fetchSearchResults = async () => {
       try {
         const response = await fetch(`https://yourconcert-api.onrender.com/search?query=${encodeURIComponent(query)}`);
+        if(response.status===400){
+          alert("Search not valid")
+          return;
+        }
+        if (response.status === 404) {
+          alert("No concert reviews found");
+          return;
+        }
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
         setSearchResults(data);
+        console.log(data)
       } catch (error) {
         console.error('Error fetching search results:', error);
       }
@@ -27,8 +36,8 @@ const Search = () => {
   }, [query]);
   
   return (
-    <div className='flex flex-col items-center mt-16 p-5'>
-      <p>Search results for "{query}"</p>
+    <div className='flex flex-col items-center mt-32 p-5'>
+      <p className='font- text-xl'>Search results for "{query}"</p>
       <div className="w-full max-w-2xl ml-5 mr-5 lg:ml-0 lg:mr-0 md:ml-0 md:mr-0 pb-5">
         {searchResults.length > 0 && searchResults.map((searchResults,index) => (
           <Post

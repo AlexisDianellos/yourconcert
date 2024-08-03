@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 const Navbar = () => {
   const { setUserInfo, userInfo } = useContext(UserContext);
   const navigate = useNavigate();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchContent, setSearchContent]=useState('');
 
   useEffect(() => {
@@ -29,7 +28,7 @@ const Navbar = () => {
   }, [setUserInfo]);
 
   function logout() {
-    fetch('https://yourconcert-api.onrender.com/logout', {
+    fetch('https://yourconcert-api.onrender.com/auth/logout', {
       credentials: 'include',
       method: 'POST',
     })
@@ -51,62 +50,41 @@ const Navbar = () => {
     navigate(`/search?query=${encodeURIComponent(searchContent)}`);
   }
 
+  function handleKeyDown(e) {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  }
+
   const username = userInfo?.username;
 
   return (
-    <nav className='fixed top-0 left-0 w-full bg-blue-900 shadow-xl flex items-center justify-between p-4 sm:px-10 md:px-32 lg:px-80'>
-      <Link className="flex items-center text-xl font-bold" to='/'>
+    <nav className='fixed top-0 left-0 w-full shadow-xl flex flex-col lg:flex-row md:flex-y sm:flex-row items-center justify-center p-4 sm:px-10 md:px-32 lg:px-80 backdrop-blur-xl z-50'>
+      
+      <div className='flex'>
+      <Link className="flex items-center text-xl font-bold mr-3" to='/'>
         YourConcert
-        <span className="material-symbols-outlined text-xl ml-2">
+        <span className="material-symbols-outlined text-xl ml-1">
           music_note
         </span>
       </Link>
-      <div className="hidden sm:flex items-center flex-1 mx-4">
-        <input
-          type="text"
-          placeholder='Search for concerts'
-          className="w-full px-4 py-2 rounded-xl shadow-sm focus:outline-none text-slate-200 bg-blue-500 placeholder-slate-200"
-          onChange={(e)=>setSearchContent(e.target.value)}
-        />
-        <button
-          className="ml-1 p-1 rounded-full bg-blue-600 text-white hover:bg-blue-400"
-          onClick={handleSearch}
-        >
-          <span className="material-symbols-outlined">
+        <div className='flex items-center bg-blue-950 rounded-lg border border-gray-700 px-4 py-2 '>
+          <span className="material-symbols-outlined text-xl text-gray-500 mr-2">
             search
-          </span>
-        </button>
-      </div>
-      <button className="sm:hidden rounded-xl bg-blue-600 px-2 py-1" onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-      >
-        <span className="material-symbols-outlined font-bold">
-          search
-        </span>
-      </button>
-      {isDropdownOpen && (
-        <div className="flex flex-row items-center absolute top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 bg-blue-700 p-4 rounded-2xl">
-           <span className="font-bold material-symbols-outlined" onClick={(e)=>setIsDropdownOpen(false)}>
-            arrow_back
           </span>
           <input
             type="text"
-            placeholder='Search for concerts'
-            className="w-full p-2 rounded-xl shadow-sm focus:outline-none text-slate-200 bg-blue-500 placeholder-slate-200 mr-2 ml-2"
+            placeholder='Search concerts'
+            className=" w-24 focus:outline-none bg-blue-950 rounded-lg"
             onChange={(e)=>setSearchContent(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
-          <button
-            className="p-2 rounded-full bg-blue-600 text-white hover:bg-blue-500"
-            onClick={handleSearch}
-          >
-            <span className="material-symbols-outlined font-bold">
-              search
-            </span>
-          </button>
         </div>
-      )}
+      </div>
+
       {username ? (
-        <div className='flex items-center'>
-          <Link className="mr-4" to="/create">
+        <div className='flex items-center p-3'>
+          <Link className="mr-4 ml-2" to="/create">
             <span className="material-symbols-outlined text-2xl">
               add
             </span>
@@ -118,9 +96,10 @@ const Navbar = () => {
           </button>
         </div>
       ) : (
-        <button className='rounded-2xl mr-3 p-2 bg-blue-600 hover:bg-blue-700 text-white'>
-          <Link className='font-medium' to='/login'>Login</Link>
-        </button>
+        <div className='font-bold flex items-center'>
+          <Link className='hover:underline p-4 text-gray-400' to="/about">About</Link>
+          <Link className='bg-teal-300 hover:bg-teal-500 text-blue-950 font-bold py-2 px-4 rounded-full inline-block no-underline' to='/register '>Register</Link>
+        </div>
       )}
     </nav>
   );

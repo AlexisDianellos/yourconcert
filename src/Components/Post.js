@@ -1,8 +1,8 @@
-import React,{useEffect, useState} from 'react';
+import React from 'react';
 import {format, differenceInHours, differenceInMinutes } from "date-fns";
 import { Link } from 'react-router-dom';
 
-const Post = ({_id,title,summary,cover,content,createdAt,author}) => {
+const Post = ({_id,title,summary,cover,createdAt,author}) => {
 
   const createdDate = new Date(createdAt);
   const now = new Date();
@@ -35,7 +35,9 @@ const Post = ({_id,title,summary,cover,content,createdAt,author}) => {
         </div>
         <h1 className='text-md font-semibold mt-1'>{title}</h1>
         <div className='flex justify-center'>
-          <img src={'https://yourconcert-api.onrender.com/'+cover} className='w-full h-auto rounded-md object-cover mt-2 mb-2'></img>
+        <div className='w-full h-96 overflow-hidden rounded-md mt-2 mb-2'>
+            <img src={'https://yourconcert-api.onrender.com/' + cover} className='w-full h-full object-cover'></img>
+          </div>
         </div>
         <p className='text-md text-gray-200'>{summary}</p>
       </Link>

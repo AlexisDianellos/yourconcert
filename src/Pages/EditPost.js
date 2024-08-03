@@ -39,7 +39,7 @@ const EditPost = () => {
   const [redirect,setRedirect] = useState(false);
 
   useEffect(()=>{
-    fetch('https://yourconcert-api.onrender.com/post/'+id)
+    fetch('https://yourconcert-api.onrender.com/posts/'+id)
       .then(response=>{
         response.json().then(post =>{
           setTitle(post.title)
@@ -82,7 +82,7 @@ const EditPost = () => {
 
     event.preventDefault();
     try {
-      const response = await fetch('https://yourconcert-api.onrender.com/post', {
+      const response = await fetch(`https://yourconcert-api.onrender.com/posts/${id}`, {
         method: 'PUT',
         body: data,
         credentials: 'include',
@@ -90,7 +90,18 @@ const EditPost = () => {
       if (response.ok) {
         setRedirect(true);
       } else {
-        console.error('Failed to update post', response.statusText);
+          const errorData = await response.json();
+          if(response.status===413){
+            alert("An error occured. Please try again later");
+            alert('Error: '+errorData.error);
+          }
+          else{
+            console.error('Error: ' + response.statusText);
+            if(response.statusText==='Internal Server Error'){
+              alert('Post is too large.')
+            }
+          }
+          return;  
       }
     } catch (error) {
       console.error('Failed to fetch', error);
@@ -102,10 +113,11 @@ const EditPost = () => {
   }  
 
   return (
-    <div className="max-w-xl mx-auto p-5 mt-16">
+    <div className="max-w-xl mx-auto p-5 mt-32 mb-10">
+      <h1 className='text-center text-3xl font-bold mb-10'>Edit your Concert review,</h1>
       <form onSubmit={handleSubmit} className="space-y-10">
         <div>
-          <label type="title" className="block text-sm font-medium mt-5 lg:mt-0 md:mt-0">Concert Title</label>
+          <label type="title" className="block text-lg font-medium mt-5 lg:mt-0 md:mt-0">Concert Title</label>
           <input
             type="text"
             value={title}
@@ -115,7 +127,7 @@ const EditPost = () => {
           />
         </div>
         <div>
-          <label htmlFor="summary" className="block text-sm font-medium ">Summary</label>
+          <label htmlFor="summary" className="block text-lg font-medium ">Summary</label>
           <textarea
             value={summary}
             onChange={(e) => setSummary(e.target.value)}
@@ -125,7 +137,7 @@ const EditPost = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium ">Upload Image</label>
+          <label className="block text-lg font-medium ">Upload Image</label>
           <input
             type="file"
             onChange={(e)=> setFiles(e.target.files)}
@@ -134,7 +146,7 @@ const EditPost = () => {
         </div>
         
         <div>
-        <label className="block text-sm font-medium ">Performance Quality</label>
+        <label className="block text-lg font-medium ">Performance Quality</label>
           <select
             value={performanceQuality}
             onChange={(e) => setPerformanceQuality(e.target.value)}
@@ -155,7 +167,7 @@ const EditPost = () => {
         </div>
         
         <div>
-          <label className="block text-sm font-medium ">Stage Presence</label>
+          <label className="block text-lg font-medium ">Stage Presence</label>
           <select
             value={stagePresence}
             onChange={(e) => setStagePresence(e.target.value)}
@@ -176,7 +188,7 @@ const EditPost = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium ">Sound Quality</label>
+          <label className="block text-lg font-medium ">Sound Quality</label>
           <select
             value={soundQuality}
             onChange={(e) => setSoundQuality(e.target.value)}
@@ -197,7 +209,7 @@ const EditPost = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium ">Visuals and Effects</label>
+          <label className="block text-lg font-medium ">Visuals and Effects</label>
           <select
             value={visualEffects}
             onChange={(e) => setVisualEffects(e.target.value)}
@@ -218,7 +230,7 @@ const EditPost = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium ">Audience Interaction</label>
+          <label className="block text-lg font-medium ">Audience Interaction</label>
           <select
             value={audienceInteraction}
             onChange={(e) => setAudienceInteraction(e.target.value)}
@@ -244,11 +256,12 @@ const EditPost = () => {
             modules={modules}
             formats={formats}
             onChange={(newValue) => setContent(newValue)}
+            className='bg-white text-black'
             />
 
-        <button
+<button
           type="submit"
-          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-teal-500 hover:bg-teal-600"
         >
           Update Review
         </button>

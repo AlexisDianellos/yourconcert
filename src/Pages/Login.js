@@ -13,7 +13,7 @@ const Login = () => {
     event.preventDefault();
     if(username && password){
       try{
-        const response = await fetch('https://yourconcert-api.onrender.com/login', {
+        const response = await fetch('https://yourconcert-api.onrender.com/auth/login', {
           method: 'POST',//bc /register in backend is a .POST
           body: JSON.stringify({username,password}),
           headers: {'Content-Type':'application/json'}, //bc its a json we need to send some headers
@@ -41,14 +41,14 @@ const Login = () => {
   }
 
   return (
-    <div className="flex h-screen justify-center items-start pt-32 ">
+    <div className="flex h-screen justify-center items-start pt-32">
       <div className="w-full max-w-md p-8">
-        <form className="space-y-6" onSubmit={login}>
-        <h1 className="text-2xl font-bold mb-4 ml-3">Log In</h1>
+        <form className="space-y-7" onSubmit={login}>
+        <h1 className="text-3xl font-bold mb-10 ml-3">Welcome back,</h1>
           <div>
             <input
               type="text"
-              className="w-full rounded-2xl px-4 py-2 focus:outline-none text-black bg-blue-200"
+              className="w-full rounded-2xl px-4 py-2 focus:outline-none text-white bg-blue-800 placeholder-gray-300"
               placeholder='Username'
               value={username}
               onChange={e=>setUsername(e.target.value)}
@@ -57,7 +57,7 @@ const Login = () => {
           <div>
             <input
               type="password"
-              className="w-full rounded-2xl px-4 py-2 focus:outline-none text-black bg-blue-200"
+              className="w-full rounded-2xl px-4 py-2 focus:outline-none text-white bg-blue-800 placeholder-gray-300"
               placeholder='Password'
               value={password}
               onChange={e=>setPassword(e.target.value)}
@@ -65,9 +65,9 @@ const Login = () => {
           </div>
           <div className='flex justify-center'>
             <p className='mr-1'>New to YourConcert?</p>
-            <Link to="/register" className='text-blue-900 hover:text-black'>Register</Link>
+            <Link to="/register" className='text-blue-400 hover:text-blue-300'>Register</Link>
           </div>
-          <button type="submit" className="w-full bg-blue-900 rounded-2xl py-3 font-semibold hover:bg-blue-800">Log In</button>
+          <button type="submit" className="w-full bg-blue-900 rounded-2xl py-3 font-semibold text-white hover:bg-blue-800 transition-colors duration-300">Log In</button>
         </form>
       </div>
     </div>
