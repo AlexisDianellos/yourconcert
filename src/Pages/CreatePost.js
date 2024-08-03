@@ -75,28 +75,20 @@ const CreatePost = () => {
     });
     alert('Fetch request sent');
     console.log('Create Post response:', response);
-    if (response.ok){
+    if (response.ok) {
       alert('Post created successfully');
       setRedirect(true);
-    }
-    else{
+    } else {
       const errorData = await response.json();
-      if(response.status===413){
-        alert("An error occured. Please try again later");
-        alert('Error: '+errorData.error);
-      }
-      else{
-        console.error('Error: ' + response.statusText);
-        if(response.statusText==='Internal Server Error'){
-          alert('Post is too large.')
-        }
-      }
-      return;
+      alert('Error: ' + response.statusText + ' - ' + errorData.error);
     }
-  }catch(err){
-    console.error('Error submitting post: ', err);
-    alert('An error occurred. Please try again later.');
-}
+  } catch (err) {
+    if (err.name === 'AbortError') {
+      alert('Request timed out. Please try again.');
+    } else {
+      alert('Error submitting post: ' + err.message);
+    }
+  }
 }
 
 
