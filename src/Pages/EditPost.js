@@ -39,7 +39,7 @@ const EditPost = () => {
   const [redirect,setRedirect] = useState(false);
 
   useEffect(()=>{
-    fetch('https://yourconcert-api.onrender.com/'+id)
+    fetch('https://yourconcert-api.onrender.com/post/'+id)
       .then(response=>{
         response.json().then(post =>{
           setTitle(post.title)
