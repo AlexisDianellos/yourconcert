@@ -38,7 +38,7 @@ const CreatePost = () => {
   const [redirect,setRedirect] = useState(false);
 
   const handleSubmit = async(event) => {
-   
+    alert('Form submission started'); 
     event.preventDefault();
 
    if (!title || !summary || !files || !performanceQuality || !pqComments || 
@@ -64,7 +64,8 @@ const CreatePost = () => {
     data.set('veComments', veComments);
     data.set('audienceInteraction', audienceInteraction);
     data.set('aiComments', aiComments);
-    
+
+    alert('FormData is set');
     //when create post is clicked i want to send my 4 things to backend
     try{
     const response = await fetch('https://yourconcert-api.onrender.com/posts',{
@@ -72,8 +73,10 @@ const CreatePost = () => {
       body: data,
       credentials: 'include',
     });
+    alert('Fetch request sent');
     console.log('Create Post response:', response);
     if (response.ok){
+      alert('Post created successfully');
       setRedirect(true);
     }
     else{
