@@ -79,15 +79,17 @@ const CreatePost = () => {
       alert('Post created successfully');
       setRedirect(true);
     } else {
-      // Attempt to extract error details
-      let errorData;
+      let errorMessage = `Error: ${response.status} - ${response.statusText || 'No status text'}`;
+
+      // Attempt to parse the error message
       try {
-        errorData = await response.json();
+        const errorData = await response.json();
+        errorMessage += `\n${errorData.error || 'No error message'}`;
       } catch (jsonError) {
-        errorData = { error: 'Failed to parse error response' };
+        errorMessage += '\nError parsing response: ' + jsonError.message;
       }
 
-      alert(`Error: ${response.status} - ${response.statusText || 'No status text'}\n${errorData.error || 'No error message'}`);
+      alert(errorMessage);
     }
   } catch (err) {
     if (err.name === 'AbortError') {
