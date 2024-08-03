@@ -79,14 +79,21 @@ const CreatePost = () => {
       alert('Post created successfully');
       setRedirect(true);
     } else {
-      const errorData = await response.json();
-      alert('Error: ' + response.statusText + ' - ' + errorData.error);
+      // Attempt to extract error details
+      let errorData;
+      try {
+        errorData = await response.json();
+      } catch (jsonError) {
+        errorData = { error: 'Failed to parse error response' };
+      }
+
+      alert(`Error: ${response.status} - ${response.statusText || 'No status text'}\n${errorData.error || 'No error message'}`);
     }
   } catch (err) {
     if (err.name === 'AbortError') {
       alert('Request timed out. Please try again.');
     } else {
-      alert('Error submitting post: ' + err.message);
+      alert(`Error submitting post: ${err.message}`);
     }
   }
 }
