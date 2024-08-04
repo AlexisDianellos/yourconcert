@@ -11,6 +11,7 @@ const Login = () => {
 
   async function login(event){
     event.preventDefault();
+    alert('Login initiated for user:', username);
     if(username && password){
       try{
         const response = await fetch('https://yourconcert-api.onrender.com/auth/login', {
@@ -20,11 +21,14 @@ const Login = () => {
           credentials:'include',//this way if we have a cookie it will be considered as credentials
       });
       if (response.ok){
+        alert('Login response received successfully');
         response.json().then(userInfo => {
+          alert('User info received:', userInfo);
           setUserInfo(userInfo);
           setRedirect(true);
         })
       } else{
+        alert('Login failed with status:', response.status);
         alert('Incorrect Username or Password')
       }
       } catch(error){
