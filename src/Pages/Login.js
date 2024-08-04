@@ -8,11 +8,9 @@ const Login = () => {
   const [password,setPassword]=useState('');
   const [redirect,setRedirect]=useState(false);//to redirect to home page
   const { setUserInfo } = useContext(UserContext); // Destructure setUserInfo from UserContext
-  const [debugInfo, setDebugInfo] = useState('');
 
   async function login(event){
     event.preventDefault();
-    alert('Login initiated for user:', username);
     if(username && password){
       try{
         const response = await fetch('https://yourconcert-api.onrender.com/auth/login', {
@@ -22,21 +20,12 @@ const Login = () => {
           credentials:'include',//this way if we have a cookie it will be considered as credentials
       });
       if (response.ok){
-        //alert('Login response received successfully');
-        //response.json().then(userInfo => {
-         // alert('User info received:', userInfo);
-         // setUserInfo(userInfo);
-         // setRedirect(true);
-         const rawResponse = await response.text();
-        setDebugInfo(`Raw response: ${rawResponse}`); // Display raw response on the screen
-
-        const userInfo = JSON.parse(rawResponse);
-        setDebugInfo(`Parsed userInfo: ${JSON.stringify(userInfo)}`); // Display parsed user info on the screen
+        response.json().then(userInfo => {
         setUserInfo(userInfo);
-        //setRedirect(true);
-        
+        setRedirect(true);
+        })
       } else{
-        alert('Login failed with status:', response.status);
+        console.error('Login failed with status:', response.status);
         alert('Incorrect Username or Password')
       }
       } catch(error){
@@ -81,7 +70,6 @@ const Login = () => {
           </div>
           <button type="submit" className="w-full bg-blue-900 rounded-2xl py-3 font-semibold text-white hover:bg-blue-800 transition-colors duration-300">Log In</button>
         </form>
-        {debugInfo && <pre className="mt-5 text-sm text-red-500">{debugInfo}</pre>}
       </div>
     </div>
   );
