@@ -36,6 +36,7 @@ const CreatePost = () => {
   const [aiComments, setAiComments]=useState('');
   const [content, setContent] = useState('');
   const [redirect,setRedirect] = useState(false);
+  const [errm, setErrm] = useState('');
 
   const handleSubmit = async(event) => {
     alert('Form submission started'); 
@@ -90,6 +91,7 @@ const CreatePost = () => {
       }
 
       alert(errorMessage);
+      setErrm(errorMessage);
     }
   } catch (err) {
     if (err.name === 'AbortError') {
@@ -259,6 +261,7 @@ const CreatePost = () => {
           Create Review
         </button>
       </form>
+      {errm && <pre className="mt-5 text-sm text-red-500">{errm}</pre>}
     </div>
   );
 }
