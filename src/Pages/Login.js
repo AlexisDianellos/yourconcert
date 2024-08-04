@@ -23,6 +23,7 @@ const Login = () => {
         response.json().then(userInfo => {
         setUserInfo(userInfo);
         setRedirect(true);
+        console.log('Cookies after login:', document.cookie);
         })
       } else{
         console.error('Login failed with status:', response.status);

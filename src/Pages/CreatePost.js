@@ -68,6 +68,9 @@ const CreatePost = () => {
 
     alert('FormData is set');
     //when create post is clicked i want to send my 4 things to backend
+    console.log('Request Headers:', {
+      'Authorization': document.cookie // or any other method you use to retrieve cookies
+    });
     try{
     const response = await fetch('https://yourconcert-api.onrender.com/posts',{
       method:'POST',//bc im posting a new entry
