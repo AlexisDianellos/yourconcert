@@ -80,18 +80,20 @@ const CreatePost = () => {
       alert('Post created successfully');
       setRedirect(true);
     } else {
-      let errorMessage = `Error: ${response.status} - ${response.statusText || 'No status text'}`;
-
-      // Attempt to parse the error message
-      try {
-        const errorData = await response.json();
-        errorMessage += `\n${errorData.error || 'No error message'}`;
-      } catch (jsonError) {
-        errorMessage += '\nError parsing response: ' + jsonError.message;
-      }
-
-      alert(errorMessage);
-      setErrm(errorMessage);
+          // Log additional details about the response
+          const responseText = await response.text();
+          console.error('Create Post failed:', {
+            status: response.status,
+            statusText: response.statusText,
+            headers: response.headers,
+            body: responseText,
+          });
+    
+          let errorMessage = `Error: ${response.status} - ${response.statusText || 'No status text'}`;
+          errorMessage += `\nResponse Body: ${responseText}`;
+    
+          setErrm(errorMessage);
+          alert(errorMessage);
     }
   } catch (err) {
     if (err.name === 'AbortError') {
