@@ -8,6 +8,7 @@ const Login = () => {
   const [password,setPassword]=useState('');
   const [redirect,setRedirect]=useState(false);//to redirect to home page
   const { setUserInfo } = useContext(UserContext); // Destructure setUserInfo from UserContext
+  const [debugInfo, setDebugInfo] = useState('');
 
   async function login(event){
     event.preventDefault();
@@ -27,11 +28,12 @@ const Login = () => {
          // setUserInfo(userInfo);
          // setRedirect(true);
          const rawResponse = await response.text();
-         alert('Raw response:', rawResponse); // Check the raw response
-         const userInfo = JSON.parse(rawResponse);
-         alert('Parsed userInfo:', userInfo); // Log parsed user info
-         setUserInfo(userInfo);
-         setRedirect(true);
+        setDebugInfo(`Raw response: ${rawResponse}`); // Display raw response on the screen
+
+        const userInfo = JSON.parse(rawResponse);
+        setDebugInfo(`Parsed userInfo: ${JSON.stringify(userInfo)}`); // Display parsed user info on the screen
+        setUserInfo(userInfo);
+        //setRedirect(true);
         
       } else{
         alert('Login failed with status:', response.status);
@@ -79,6 +81,7 @@ const Login = () => {
           </div>
           <button type="submit" className="w-full bg-blue-900 rounded-2xl py-3 font-semibold text-white hover:bg-blue-800 transition-colors duration-300">Log In</button>
         </form>
+        {debugInfo && <pre className="mt-5 text-sm text-red-500">{debugInfo}</pre>}
       </div>
     </div>
   );
