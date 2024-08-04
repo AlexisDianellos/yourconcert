@@ -21,12 +21,18 @@ const Login = () => {
           credentials:'include',//this way if we have a cookie it will be considered as credentials
       });
       if (response.ok){
-        alert('Login response received successfully');
-        response.json().then(userInfo => {
-          alert('User info received:', userInfo);
-          setUserInfo(userInfo);
-          setRedirect(true);
-        })
+        //alert('Login response received successfully');
+        //response.json().then(userInfo => {
+         // alert('User info received:', userInfo);
+         // setUserInfo(userInfo);
+         // setRedirect(true);
+         const rawResponse = await response.text();
+         alert('Raw response:', rawResponse); // Check the raw response
+         const userInfo = JSON.parse(rawResponse);
+         alert('Parsed userInfo:', userInfo); // Log parsed user info
+         setUserInfo(userInfo);
+         setRedirect(true);
+        
       } else{
         alert('Login failed with status:', response.status);
         alert('Incorrect Username or Password')
