@@ -8,6 +8,7 @@ const Login = () => {
   const [password,setPassword]=useState('');
   const [redirect,setRedirect]=useState(false);//to redirect to home page
   const { setUserInfo } = useContext(UserContext); // Destructure setUserInfo from UserContext
+  const [token, setToken] = useState(''); // to display the token
 
   async function login(event){
     event.preventDefault();
@@ -15,16 +16,21 @@ const Login = () => {
       try{
         const response = await fetch('https://yourconcert-api.onrender.com/auth/login', {
           method: 'POST',//bc /register in backend is a .POST
-          body: JSON.stringify({username,password}),
-          headers: {'Content-Type':'application/json'}, //bc its a json we need to send some headers
-          credentials:'include',//this way if we have a cookie it will be considered as credentials
+          body: JSON.stringify({ username, password }),
+          headers: { 'Content-Type': 'application/json' }, // because it's a JSON we need to send some headers
+          credentials: 'include', // this way if we have a cookie it will be considered as credentials
       });
       if (response.ok){
         response.json().then(userInfo => {
         setUserInfo(userInfo);
-        setRedirect(true);
+        //setRedirect(true);
         console.log('document ',document);
         console.log('Cookies after login:', document.cookie);
+
+           // Store token in local storage
+        localStorage.setItem('token', userInfo.token);
+        setToken(userInfo.token); // set the token to display it on screen
+
         })
       } else{
         console.error('Login failed with status:', response.status);
@@ -72,6 +78,13 @@ const Login = () => {
           </div>
           <button type="submit" className="w-full bg-blue-900 rounded-2xl py-3 font-semibold text-white hover:bg-blue-800 transition-colors duration-300">Log In</button>
         </form>
+        {/* Display the token */}
+        {token && (
+          <div className="mt-8 p-4 bg-gray-100 rounded">
+            <h2 className="text-lg font-bold">Your Token:</h2>
+            <p className="text-sm break-all">{token}</p>
+          </div>
+        )}
       </div>
     </div>
   );
