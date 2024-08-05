@@ -8,7 +8,7 @@ const Login = () => {
   const [password,setPassword]=useState('');
   const [redirect,setRedirect]=useState(false);//to redirect to home page
   const { setUserInfo } = useContext(UserContext); // Destructure setUserInfo from UserContext
-  const [token, setToken] = useState(''); // to display the token
+  const [token, setToken] = useState('');
 
   async function login(event){
     event.preventDefault();
@@ -78,13 +78,6 @@ const Login = () => {
           </div>
           <button type="submit" className="w-full bg-blue-900 rounded-2xl py-3 font-semibold text-white hover:bg-blue-800 transition-colors duration-300">Log In</button>
         </form>
-        {/* Display the token */}
-        {token && (
-          <div className="mt-8 p-4 bg-gray-100 rounded">
-            <h2 className="text-lg font-bold">Your Token:</h2>
-            <p className="text-sm break-all">{token}</p>
-          </div>
-        )}
       </div>
     </div>
   );

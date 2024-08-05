@@ -67,6 +67,8 @@ const CreatePost = () => {
     data.set('aiComments', aiComments);
 
     alert('FormData is set');
+
+    const token = localStorage.getItem('token')
     //when create post is clicked i want to send my 4 things to backend
     console.log('Request Headers:', {
       'Authorization': document.cookie // or any other method you use to retrieve cookies
@@ -75,6 +77,9 @@ const CreatePost = () => {
     const response = await fetch('https://yourconcert-api.onrender.com/posts',{
       method:'POST',//bc im posting a new entry
       body: data,
+      headers: {
+        'Authorization': `Bearer ${token}`, // Set the Authorization header with the token
+      },
       credentials: 'include',
     });
     alert('Fetch request sent');
